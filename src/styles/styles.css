@@ -1,0 +1,134 @@
+.search-input>div {
+    height: 48px !important;
+    width: 350px;
+    border-radius: 20px;
+    background-color: none !important;
+
+    color: #ffffff;
+    /* font-family: system-ui;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px #95bfe5; */
+}
+
+.search-input>div >fieldset{
+    border: 1px solid #95bfe5;
+    box-shadow: 0px 0px 5px #95bfe5;
+}
+
+.search-input>div >fieldset:hover{
+    border: 1px solid #95bfe5;
+    box-shadow: 0px 0px 5px #95bfe5;
+}
+
+.search-icon {
+    /* font-size: 30px !important;
+    padding: 5px;
+    color: #95bfe5;
+    text-shadow: 0 0 20px #95bfe5 !important; */
+
+    font-size: 45px !important;
+    color: #95bfe5;
+    text-shadow: 0 0 20px #95bfe5 !important;
+    padding: 0px 16px;
+}
+
+.wheather-block {
+    text-align: center;
+    padding-top: 250px;
+}
+
+.city-wheather-block-night {
+    width: 350px !important;
+    border-radius: 25px;
+    justify-content: center;
+    display: flex;
+    min-height: 500px;
+}
+
+.city-wheather-block-grid{
+    padding: 100px 0px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+}
+
+.city-name {
+    color: #f6fbfe;
+    font-weight: 100;
+    font-size: 40px;
+    font-family: system-ui;
+}
+
+.temp{
+    color: #95bfe5;
+    text-shadow: 0 0 20px #95bfe5;
+
+    font-size: 60px;
+    font-family: inherit;
+    font-weight: 100;
+}
+
+.discription{
+    color: #95bfe5;
+    font-family: system-ui;
+    letter-spacing: 3px;
+    text-shadow: 0 0 20px #95bfe5;
+}
+
+
+
+/*// Glow Border Animation //*/
+
+.gradient-border {
+    --borderWidth: 10px;
+    background: #1D1F20;
+    position: relative;
+    border-radius: var(--borderWidth);
+  }
+  .gradient-border:after {
+    content: '';
+    position: absolute;
+    top: calc(-1 * var(--borderWidth));
+    left: calc(-1 * var(--borderWidth));
+    height: calc(100% + var(--borderWidth) * 2);
+    width: calc(100% + var(--borderWidth) * 2);
+    background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+    border-radius: calc(2 * var(--borderWidth));
+    z-index: -1;
+    animation: animatedgradient 3s ease alternate infinite;
+    background-size: 300% 300%;
+  }
+  
+  /* Background Animation */
+  
+  @keyframes animatedgradient {
+      0% {
+          background-position: 0% 50%;
+      }
+      50% {
+          background-position: 100% 50%;
+      }
+      100% {
+          background-position: 0% 50%;
+      }
+  }
+
+  body {
+    background: linear-gradient(-45deg, rgb(76, 23, 97), rgb(46, 24, 77), rgb(30 8 54), #050d32);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
