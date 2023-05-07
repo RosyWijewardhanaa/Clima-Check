@@ -11,38 +11,43 @@ import img10d from "../../images/10d.png";
 import img11d from "../../images/11d.png";
 import img13d from "../../images/13d.png";
 import img50d from "../../images/50d.png";
-
 import img01n from "../../images/01n.png";
 import img02n from "../../images/02n.png";
 import img10n from "../../images/10n.png";
-
 import imgNA from "../../images/na.png";
 import bgR from "../../images/bgr.png";
-
 import axios from "axios";
 
 function Weather() {
   const [city, setCity] = useState("");
+  const [fCity, setFCity] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [weatherIcon, setWeatherIcon] = useState(imgNA);
   const [temp, setTemp] = useState(0);
   const [bgColor, setBgColor] = useState("#050d32");
+  const [validateData, setValidateData] = useState(true);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ddd1d91958ea52f6058bc2c7796bcf30`;
-    const response = await axios.get(url);
-    console.log("+++++++++ ", response);
-    setWeatherData(response.data);
+    const API_KEY = 'Your Key';
+
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=API_KEY`;
+    const response = await axios.get(url).then(function(resp){
+        setWeatherData(resp.data);
+        setFCity(city);
+        setValidateData(true);
+    }).catch(function(e){
+        setValidateData(false);
+        setWeatherIcon(imgNA);
+        setBgColor("#050d32");
+    })
   };
 
   useEffect(() => {
     if (weatherData) {
-      //   console.log(weatherData.weather[0].icon);
 
       setTemp(weatherData.main.temp - 273.15);
-
       let icon = weatherData.weather[0].icon;
 
       if (icon == "01d") {
@@ -86,7 +91,9 @@ function Weather() {
         setBgColor("#050d32");
       }
 
-      console.log("pageIcon: ", weatherIcon);
+    } else {
+      setWeatherIcon(imgNA);
+      setBgColor("#050d32");
     }
   }, [weatherData]);
 
@@ -100,7 +107,13 @@ function Weather() {
     <div>
       <Grid container>
         <Grid item xs={7} className="wheather-block">
-          <Grid item xs={12}>
+          <Grid className="header">
+            <span>
+              <span className="gradient-text">CLIMA</span>
+              <span className="gradient-text">CHECK</span>
+            </span>
+          </Grid>
+          <Grid item xs={12} style={{ paddingTop: "90px" }}>
             <TextField
               className="search-input"
               id="outlined-basic"
@@ -108,12 +121,13 @@ function Weather() {
               value={city}
               onChange={(event) => setCity(event.target.value)}
             />
-            <SearchIcon onClick={handleSubmit} className="search-icon" />
+            <span className="search-icon-div">
+              <SearchIcon onClick={handleSubmit} className="search-icon" />
+            </span>
           </Grid>
           <Grid item xs={12}>
             <div>
-              {" "}
-              <img src={bgR} style={{ width: "500px" }} />
+              <img src={bgR} style={{ width: "480px" }} />
             </div>
           </Grid>
         </Grid>
@@ -134,24 +148,37 @@ function Weather() {
                 src={weatherIcon}
               />
             </Grid>
-            <Grid item xs={12} style={{ height: "30px" }}>
+
+            {validateData && <Grid item xs={12} style={{ height: "30px" }}>
               {weatherData && (
                 <span className="temp">{temp.toFixed(1)}&deg;C</span>
+              )}
+            </Grid>}
+
+            <Grid item xs={12}>
+              {!weatherData && (
+                <span className="discription">Please Enter a City</span>
               )}
             </Grid>
 
             <Grid item xs={12}>
+              {!validateData && (
+                <span className="discription">Invalid City</span>
+              )}
+            </Grid>
+
+            {validateData && <Grid item xs={12}>
               {weatherData && (
                 <span className="discription">
                   {capitalizeWords(weatherData.weather[0].description)}
                 </span>
               )}
-            </Grid>
-            <Grid item xs={12}>
+            </Grid>}
+            {validateData && <Grid item xs={12}>
               {weatherData && (
-                <span className="city-name">{city.toUpperCase()}</span>
+                <span className="city-name">{fCity.toUpperCase()}</span>
               )}
-            </Grid>
+            </Grid>}
           </Grid>
         </Grid>
       </Grid>

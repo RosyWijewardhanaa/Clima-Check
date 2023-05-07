@@ -3,11 +3,7 @@
     width: 350px;
     border-radius: 20px;
     background-color: none !important;
-
     color: #ffffff;
-    /* font-family: system-ui;
-    letter-spacing: 3px;
-    text-shadow: 0 0 20px #95bfe5; */
 }
 
 .search-input>div >fieldset{
@@ -15,26 +11,69 @@
     box-shadow: 0px 0px 5px #95bfe5;
 }
 
-.search-input>div >fieldset:hover{
-    border: 1px solid #95bfe5;
-    box-shadow: 0px 0px 5px #95bfe5;
+.search-input>div>fieldset:hover {
+    /* border: 1px solid #95bfe5;
+    box-shadow: 0px 0px 5px #95bfe5; */
+    /* border: none !important; */
+    border: 4px red solid !important;
+}
+
+.MuiInputBase-root:hover {
+    box-shadow: none !important;
+    border: 4px solid #f0f7fd;
+}
+
+.MuiInputBase-root:focus-visible {
+    box-shadow: none !important;
+    border: 4px solid #ffffff;
 }
 
 .search-icon {
-    /* font-size: 30px !important;
-    padding: 5px;
+    margin-left: 10px;
+    font-size: 23px !important;
     color: #95bfe5;
-    text-shadow: 0 0 20px #95bfe5 !important; */
-
-    font-size: 45px !important;
-    color: #95bfe5;
-    text-shadow: 0 0 20px #95bfe5 !important;
-    padding: 0px 16px;
+    padding: 13px;
+    border: 1px solid #95bfe5;
+    border-radius: 100%;
+    box-shadow:  0px 0px 5px #95bfe5 !important;
 }
+
+.search-icon:hover {
+    padding: 11px;
+    border: 4px solid #f0f7fd;
+    color: #f0f7fd;;
+}
+
+/* text animation start */
+
+.gradient-text {
+    font-size: 60px;
+    font-weight: 900;
+    background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 300% 300%;
+    animation: animatedgradient 3s ease alternate infinite;
+  }
+  
+  @keyframes animatedgradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+
+/* text animation end */
 
 .wheather-block {
     text-align: center;
-    padding-top: 250px;
+    padding-top: 70px;
 }
 
 .city-wheather-block-night {
@@ -76,10 +115,7 @@
     text-shadow: 0 0 20px #95bfe5;
 }
 
-
-
-/*// Glow Border Animation //*/
-
+ /* Glow Border Animation Start */
 .gradient-border {
     --borderWidth: 10px;
     background: #1D1F20;
@@ -100,8 +136,6 @@
     background-size: 300% 300%;
   }
   
-  /* Background Animation */
-  
   @keyframes animatedgradient {
       0% {
           background-position: 0% 50%;
@@ -113,7 +147,10 @@
           background-position: 0% 50%;
       }
   }
+  /* Glow Border Animation End */
 
+
+  /* Background Animation */
   body {
     background: linear-gradient(-45deg, rgb(76, 23, 97), rgb(46, 24, 77), rgb(30 8 54), #050d32);
 	background-size: 400% 400%;
@@ -132,3 +169,4 @@
 		background-position: 0% 50%;
 	}
 }
+/* Background Animation End*/
