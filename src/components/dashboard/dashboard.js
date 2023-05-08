@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Grid, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "../../styles/styles.css";
 import img01d from "../../images/01d.png";
 import img02d from "../../images/02d.png";
@@ -26,14 +27,16 @@ function Weather() {
   const [temp, setTemp] = useState(0);
   const [bgColor, setBgColor] = useState("#050d32");
   const [validateData, setValidateData] = useState(true);
+  const [location, setLocation] = useState({});
+
+  const API_KEY = 'Your Key';
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const API_KEY = 'Your Key';
-
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=API_KEY`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ddd1d91958ea52f6058bc2c7796bcf30`;
     const response = await axios.get(url).then(function(resp){
+      console.log('****************** ',resp.data);
         setWeatherData(resp.data);
         setFCity(city);
         setValidateData(true);
@@ -42,6 +45,9 @@ function Weather() {
         setWeatherIcon(imgNA);
         setBgColor("#050d32");
     })
+
+    // console.log('****************** ',response);
+
   };
 
   useEffect(() => {
@@ -103,8 +109,60 @@ function Weather() {
     });
   };
 
+  // useEffect(() => {
+  //     if (navigator.geolocation) {
+  //       navigator.geolocation.getCurrentPosition(
+  //         (position) => {
+  //           setLocation({
+  //             latitude: position.coords.latitude,
+  //             longitude: position.coords.longitude,
+  //           });
+  //         },
+  //         (error) => {
+  //           console.error(error);
+  //         }
+  //       );
+  //     } else {
+  //       console.error("Geolocation is not supported by this browser.");
+  //     }
+  //   }, []);
+
+    // const handleCurrentLocation = async (event) => {
+    //   event.preventDefault();
+    //   const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${location.latitude}&lon=${location.longitude}&exclude={part}&appid=ddd1d91958ea52f6058bc2c7796bcf30`;
+    //   const response = await axios.get(url).then(function(resp){
+    //       console.log("Current location validation Successed!!!",resp);
+    //   }).catch(function(e){
+    //       console.log("Current location validation failed!!!");
+    //   })
+    // };
+
+    const[currentCity,setCurrentCity] = useState();
+
+    const handleCurrentLocation = async (event) => {
+      event.preventDefault();
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=ddd1d91958ea52f6058bc2c7796bcf30`;
+          const response = await axios.get(url);
+          console.log(response.data.name);
+          setCurrentCity(response.data.name);
+          
+        }, (error) => {
+          console.log(error);
+        });
+      } else {
+        console.log("Geolocation is not supported by this browser.");
+      }
+    };
+    
+
   return (
     <div>
+      {/* <p>Latitude: {location.latitude}</p>
+      <p>Longitude: {location.longitude}</p> */}
       <Grid container>
         <Grid item xs={7} className="wheather-block">
           <Grid className="header">
@@ -123,6 +181,12 @@ function Weather() {
             />
             <span className="search-icon-div">
               <SearchIcon onClick={handleSubmit} className="search-icon" />
+            </span>
+            <span className="search-icon-div">
+              <LocationOnIcon
+                onClick={handleCurrentLocation}
+                className="search-icon"
+              />
             </span>
           </Grid>
           <Grid item xs={12}>
@@ -183,25 +247,6 @@ function Weather() {
         </Grid>
       </Grid>
 
-      {/* <div>
-        <label>
-          Enter city name:
-          <input
-            type="text"
-            value={city}
-            onChange={(event) => setCity(event.target.value)}
-          />
-        </label>
-        <button onClick={handleSubmit}>Get weather</button>
-      </div> */}
-
-      {/* {weatherData && (
-        <div>
-          <h2>Current weather in {city}:</h2>
-          <p>Temperature: {weatherData.main.temp}</p>
-          <p>Weather: {weatherData.weather[0].description}</p>
-        </div>
-      )} */}
     </div>
   );
 }
