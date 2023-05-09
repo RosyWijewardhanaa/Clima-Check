@@ -29,30 +29,28 @@ function Weather() {
   const [validateData, setValidateData] = useState(true);
   const [location, setLocation] = useState({});
 
-  const API_KEY = 'Your Key';
-
+  const API_KEY = "Your Key";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ddd1d91958ea52f6058bc2c7796bcf30`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=API_KEY`;
     const response = await axios.get(url).then(function(resp){
       console.log('****************** ',resp.data);
         setWeatherData(resp.data);
         setFCity(city);
         setValidateData(true);
-    }).catch(function(e){
+      })
+      .catch(function (e) {
         setValidateData(false);
         setWeatherIcon(imgNA);
         setBgColor("#050d32");
-    })
+      });
 
     // console.log('****************** ',response);
-
   };
 
   useEffect(() => {
     if (weatherData) {
-
       setTemp(weatherData.main.temp - 273.15);
       let icon = weatherData.weather[0].icon;
 
@@ -96,7 +94,6 @@ function Weather() {
         setWeatherIcon(imgNA);
         setBgColor("#050d32");
       }
-
     } else {
       setWeatherIcon(imgNA);
       setBgColor("#050d32");
@@ -137,27 +134,28 @@ function Weather() {
     //   })
     // };
 
-    const[currentCity,setCurrentCity] = useState();
-
     const handleCurrentLocation = async (event) => {
       event.preventDefault();
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(async (position) => {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
           const latitude = position.coords.latitude;
           const longitude = position.coords.longitude;
           const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=ddd1d91958ea52f6058bc2c7796bcf30`;
           const response = await axios.get(url);
           console.log(response.data.name);
-          setCurrentCity(response.data.name);
-          
-        }, (error) => {
+          setWeatherData(response.data);
+          setFCity(response.data.name);
+          setValidateData(true);
+        },
+        (error) => {
           console.log(error);
-        });
+        }
+      );
       } else {
         console.log("Geolocation is not supported by this browser.");
       }
     };
-    
 
   return (
     <div>
@@ -213,11 +211,13 @@ function Weather() {
               />
             </Grid>
 
-            {validateData && <Grid item xs={12} style={{ height: "30px" }}>
+            {validateData && (
+              <Grid item xs={12} style={{ height: "30px" }}>
               {weatherData && (
                 <span className="temp">{temp.toFixed(1)}&deg;C</span>
               )}
-            </Grid>}
+              </Grid>
+            )}
 
             <Grid item xs={12}>
               {!weatherData && (
@@ -231,22 +231,25 @@ function Weather() {
               )}
             </Grid>
 
-            {validateData && <Grid item xs={12}>
+            {validateData && (
+              <Grid item xs={12}>
               {weatherData && (
                 <span className="discription">
                   {capitalizeWords(weatherData.weather[0].description)}
                 </span>
               )}
-            </Grid>}
-            {validateData && <Grid item xs={12}>
+              </Grid>
+            )}
+            {validateData && (
+              <Grid item xs={12}>
               {weatherData && (
                 <span className="city-name">{fCity.toUpperCase()}</span>
               )}
-            </Grid>}
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Grid>
-
     </div>
   );
 }
