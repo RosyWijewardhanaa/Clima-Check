@@ -46,7 +46,6 @@ function Weather() {
         setBgColor("#050d32");
       });
 
-    // console.log('****************** ',response);
   };
 
   useEffect(() => {
