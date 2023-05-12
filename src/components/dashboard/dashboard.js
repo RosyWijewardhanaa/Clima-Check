@@ -105,34 +105,6 @@ function Weather() {
     });
   };
 
-  // useEffect(() => {
-  //     if (navigator.geolocation) {
-  //       navigator.geolocation.getCurrentPosition(
-  //         (position) => {
-  //           setLocation({
-  //             latitude: position.coords.latitude,
-  //             longitude: position.coords.longitude,
-  //           });
-  //         },
-  //         (error) => {
-  //           console.error(error);
-  //         }
-  //       );
-  //     } else {
-  //       console.error("Geolocation is not supported by this browser.");
-  //     }
-  //   }, []);
-
-    // const handleCurrentLocation = async (event) => {
-    //   event.preventDefault();
-    //   const url = `https://api.openweathermap.org/data/3.0/onecall?lat=${location.latitude}&lon=${location.longitude}&exclude={part}&appid=ddd1d91958ea52f6058bc2c7796bcf30`;
-    //   const response = await axios.get(url).then(function(resp){
-    //       console.log("Current location validation Successed!!!",resp);
-    //   }).catch(function(e){
-    //       console.log("Current location validation failed!!!");
-    //   })
-    // };
-
     const handleCurrentLocation = async (event) => {
       event.preventDefault();
       if (navigator.geolocation) {
