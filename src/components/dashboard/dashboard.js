@@ -34,8 +34,10 @@ function Weather() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=API_KEY`;
-    const response = await axios.get(url).then(function(resp){
-      console.log('****************** ',resp.data);
+    const response = await axios
+      .get(url)
+      .then(function (resp) {
+        console.log("****************** ", resp.data);
         setWeatherData(resp.data);
         setFCity(city);
         setValidateData(true);
@@ -45,7 +47,6 @@ function Weather() {
         setWeatherIcon(imgNA);
         setBgColor("#050d32");
       });
-
   };
 
   useEffect(() => {
@@ -105,9 +106,9 @@ function Weather() {
     });
   };
 
-    const handleCurrentLocation = async (event) => {
-      event.preventDefault();
-      if (navigator.geolocation) {
+  const handleCurrentLocation = async (event) => {
+    event.preventDefault();
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const latitude = position.coords.latitude;
@@ -123,15 +124,13 @@ function Weather() {
           console.log(error);
         }
       );
-      } else {
-        console.log("Geolocation is not supported by this browser.");
-      }
-    };
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  };
 
   return (
     <div>
-      {/* <p>Latitude: {location.latitude}</p>
-      <p>Longitude: {location.longitude}</p> */}
       <Grid container>
         <Grid item xs={7} className="wheather-block">
           <Grid className="header">
@@ -184,9 +183,9 @@ function Weather() {
 
             {validateData && (
               <Grid item xs={12} style={{ height: "30px" }}>
-              {weatherData && (
-                <span className="temp">{temp.toFixed(1)}&deg;C</span>
-              )}
+                {weatherData && (
+                  <span className="temp">{temp.toFixed(1)}&deg;C</span>
+                )}
               </Grid>
             )}
 
@@ -204,18 +203,18 @@ function Weather() {
 
             {validateData && (
               <Grid item xs={12}>
-              {weatherData && (
-                <span className="discription">
-                  {capitalizeWords(weatherData.weather[0].description)}
-                </span>
-              )}
+                {weatherData && (
+                  <span className="discription">
+                    {capitalizeWords(weatherData.weather[0].description)}
+                  </span>
+                )}
               </Grid>
             )}
             {validateData && (
               <Grid item xs={12}>
-              {weatherData && (
-                <span className="city-name">{fCity.toUpperCase()}</span>
-              )}
+                {weatherData && (
+                  <span className="city-name">{fCity.toUpperCase()}</span>
+                )}
               </Grid>
             )}
           </Grid>
