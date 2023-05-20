@@ -147,10 +147,10 @@ function Weather() {
               value={city}
               onChange={(event) => setCity(event.target.value)}
             />
-            <span className="search-icon-div">
+            <span className="search-icon-div" title="Search">
               <SearchIcon onClick={handleSubmit} className="search-icon" />
             </span>
-            <span className="search-icon-div">
+            <span className="search-icon-div" title="Current Location">
               <LocationOnIcon
                 onClick={handleCurrentLocation}
                 className="search-icon"
