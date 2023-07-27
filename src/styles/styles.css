@@ -179,3 +179,35 @@
 		background-position: 0% 50%;
 	}
 }
+
+body {
+    background: linear-gradient(-45deg, rgb(76, 23, 97), rgb(46, 24, 77), rgb(30 8 54), #050d32);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+/* Background Animation End*/
+
+@keyframes gradient2 {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
